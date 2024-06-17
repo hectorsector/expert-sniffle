@@ -7,9 +7,9 @@ name: Paths example
 on:
  push:
   paths:
+    - 'content/**'
     - '!**'
     - '!src/**'
-    - 'content/**'
 
 permissions:
   contents: read

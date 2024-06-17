@@ -8,6 +8,7 @@ on:
  push:
   paths:
     - 'content/**'
+    - '!src/**'
 
 permissions:
   contents: read

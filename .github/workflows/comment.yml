@@ -47,6 +47,8 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
       REPO: 'github/docs'
     steps:
+      - name: check out repo content
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       # TODO: We'll update this comment at a later time with permament-ish links to deployment instructions.
       - name: Comment on code changes
         run: |

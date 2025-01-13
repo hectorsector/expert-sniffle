@@ -44,6 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PR_NUMBER: ${{ github.event.pull_request.number || inputs.PR_NUMBER }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
       REPO: 'github/docs'
     steps:
       # TODO: We'll update this comment at a later time with permament-ish links to deployment instructions.

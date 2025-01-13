@@ -49,7 +49,7 @@ jobs:
       # TODO: We'll update this comment at a later time with permament-ish links to deployment instructions.
       - name: Comment on code changes
         run: |
-          if [[ "${{ REPO }}" == "github/docs" ]]; then
+          if [[ "${{ env.REPO }}" == "github/docs" ]]; then
             COMMENT_BODY="## 🚀 Manual Deployment Required
             **This comment is 🤖 automatically generated.**
 

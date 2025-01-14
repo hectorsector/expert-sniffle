@@ -62,14 +62,16 @@ jobs:
         if: ${{ !steps.findComment.outputs.comment-id }}
         run: |
           if [[ "${{ env.REPO }}" == "github/docs" ]]; then
-            COMMENT_BODY="## 🚀 Manual Deployment Required
+            COMMENT_BODY="<!-- CODE_CHANGES_COMMENT -->
+            ## 🚀 Manual Deployment Required
             **This comment is 🤖 automatically generated.**
 
             It looks like his pull request contains code changes. To preview these changes, an internal Hubber will need to manually deploy the changes to one of our staging server.
 
             Thank you for your contribution!"
           else
-            COMMENT_BODY="## 🚀 Manual Deployment Required
+            COMMENT_BODY="<!-- CODE_CHANGES_COMMENT -->
+            ## 🚀 Manual Deployment Required
             **This comment is 🤖 automatically generated.**
 
             It looks like this pull request contains code changes. To preview these changes, you will need to deploy them manually.

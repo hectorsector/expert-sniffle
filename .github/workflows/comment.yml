@@ -59,7 +59,7 @@ jobs:
 
       # TODO: We'll update this comment at a later time with permament-ish links to deployment instructions.
       - name: Comment on code changes
-        if: ${{ steps.findComment.outputs.comment-id != '' }}
+        if: ${{ steps.findComment.outputs.comment-id == '' }}
         run: |
           if [[ "${{ env.REPO }}" == "github/docs" ]]; then
             COMMENT_BODY="## 🚀 Manual Deployment Required

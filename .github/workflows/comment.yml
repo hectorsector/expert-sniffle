@@ -27,7 +27,7 @@ concurrency:
 
 jobs:
   postOnCodeChanges:
-    if: ${{ github.event.pull_request.user.login != 'docs-bot' && (github.repository == 'github/docs-internal' || github.repository == 'github/docs') }}
+    if: ${{ github.event.pull_request.user.login != 'docs-bot'}}
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

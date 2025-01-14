@@ -49,8 +49,17 @@ jobs:
     steps:
       - name: check out repo content
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - name: Find code changes comment
+        uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
+        id: findComment
+        with:
+          issue-number: ${{ github.event.pull_request.number || inputs.PR_NUMBER }}
+          comment-author: 'github-actions[bot]'
+          body-includes: '<!-- CODE_CHANGES_COMMENT -->'
+
       # TODO: We'll update this comment at a later time with permament-ish links to deployment instructions.
       - name: Comment on code changes
+        if: ${{ steps.findComment.outputs.comment-id != '' }}
         run: |
           if [[ "${{ env.REPO }}" == "github/docs" ]]; then
             COMMENT_BODY="## 🚀 Manual Deployment Required

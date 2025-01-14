@@ -5,29 +5,16 @@ name: Code changes comment
 # **Who does it impact**: docs-internal andd docs maintainers and contributors
 
 on:
-  workflow_dispatch:
-    inputs:
-      PR_NUMBER:
-        description: 'PR Number'
-        type: string
-        required: true
-      BASE_SHA:
-        description: 'Base SHA'
-        type: string
-        required: true
-        default: 'main'
-      HEAD_SHA:
-        description: 'Head SHA (latest sha of the PR)'
-        type: string
-        required: true
-  # Required in lieu of `pull_request` so that the content changes tables can be posts to PRs opened from a fork.
+  # Required in lieu of `pull_request` so that the comment can be posted to PRs opened from a fork.
   pull_request_target:
     types:
       - opened
       - synchronize
+    # this applies to any non-content files, this workflow will run for all changed files unless it's ONLY these content-related changes
     paths-ignore:
       - 'content/**'
       - 'data/reusables/**'
+      - 'assets/images/**'
 
 permissions:
   contents: read
@@ -40,20 +27,20 @@ concurrency:
 
 jobs:
   postOnCodeChanges:
-    if: ${{ github.event.pull_request.user.login != 'docs-bot'}}
+    if: ${{ github.event.pull_request.user.login != 'docs-bot' && (github.repository == 'github/docs-internal' || github.repository == 'github/docs') }}
     runs-on: ubuntu-latest
     env:
-      PR_NUMBER: ${{ github.event.pull_request.number || inputs.PR_NUMBER }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
-      REPO: 'github/docs-internal'
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO: 'github/docs'
     steps:
       - name: check out repo content
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
       - name: Find code changes comment
         uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
         id: findComment
         with:
-          issue-number: ${{ github.event.pull_request.number || inputs.PR_NUMBER }}
+          issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
           body-includes: '<!-- CODE_CHANGES_COMMENT -->'
 
@@ -61,10 +48,9 @@ jobs:
       - name: Comment on code changes
         if: ${{ !steps.findComment.outputs.comment-id }}
         run: |
-          if [[ "${{ env.REPO }}" == "github/docs" ]]; then
+          if [[ "${{ ENV.REPO }}" == "github/docs" ]]; then
             COMMENT_BODY="<!-- CODE_CHANGES_COMMENT -->
             ## 🚀 Manual Deployment Required
-            **This comment is 🤖 automatically generated.**
 
             It looks like his pull request contains code changes. To preview these changes, an internal Hubber will need to manually deploy the changes to one of our staging server.
 
@@ -72,11 +58,10 @@ jobs:
           else
             COMMENT_BODY="<!-- CODE_CHANGES_COMMENT -->
             ## 🚀 Manual Deployment Required
-            **This comment is 🤖 automatically generated.**
 
             It looks like this pull request contains code changes. To preview these changes, you will need to deploy them manually.
 
             Thank you for your contribution!"
           fi
 
-          gh pr comment ${{ env.PR_NUMBER }} --body "$COMMENT_BODY"
+          gh pr comment ${{ github.event.pull_request.number }} --body "$COMMENT_BODY"

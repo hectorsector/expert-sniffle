@@ -45,7 +45,7 @@ jobs:
     env:
       PR_NUMBER: ${{ github.event.pull_request.number || inputs.PR_NUMBER }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
-      REPO: 'github/docs'
+      REPO: 'github/docs-internal'
     steps:
       - name: check out repo content
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1

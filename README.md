@@ -7,7 +7,7 @@
   Add your open source license, GitHub uses Creative Commons Attribution 4.0 International.
 -->
 
-# A btter title: Reusable Workflows and Matrix Strategies
+# A better title: Reusable Workflows and Matrix Strategies
 
 _Make a workflow reusable, call it in another workflow, and use a matrix strategy to run multiple versions_
 

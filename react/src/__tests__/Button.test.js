@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Button from '../components/Button';
 
-describe('Button Component', () => {
+describe('Button Components', () => {
   test('renders button with children', () => {
     render(<Button>Click me</Button>);
     expect(screen.getByText('Click me')).toBeInTheDocument();

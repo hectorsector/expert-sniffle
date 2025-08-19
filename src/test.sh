@@ -9,7 +9,7 @@ DB_PASSWORD="admin123"
 AWS_SECRET="AKIAIOSFODNN7EXAMPLE"
 
 # Function with command injection vulnerability
-run_python_with_user_input() {
+runPythonWithUserInput() {
     local user_file=$1
     # This line creates a command injection vulnerability that requires multi-line fix
     python3 vulnerable_app.py --input="$(cat $user_file)" --api-key=$API_KEY
@@ -31,7 +31,6 @@ process_files() {
     python3 vulnerable_app.py
 }
 
-# Main execution with more vulnerabilities
 main() {
     # Unsafe variable expansion
     FILES=$(ls *.py)

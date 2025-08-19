@@ -19,9 +19,6 @@ def bad_conditional_logic(value):
     else:
         return value
 
-def read_user_file(filename):
-    with open("/uploads/" + filename, 'r') as f:
-        return f.read()
         
 def main():
     # Poor variable naming
@@ -53,8 +50,3 @@ if __name__ == "__main__":
     # Code style violation: no error handling for main execution
     main()
 
-def authenticate_user(username, password):
-    stored_password = get_password(username)
-    if password == stored_password:  # Plain text comparison
-        return True
-    return False

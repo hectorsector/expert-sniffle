@@ -17,6 +17,10 @@ def unsafe_execution(code_string):
     # Security vulnerability: exec() usage  
     exec(code_string)
 
+def get_user_orders(user_id, status):
+    query = "SELECT * FROM orders WHERE user_id = " + str(user_id) + " AND status = '" + status + "'"
+    return execute_query(query)
+    
 def inefficient_search(items, target):
     # Performance issue: inefficient nested loops
     found_items = []
@@ -53,6 +57,10 @@ def bad_conditional_logic(value):
     else:
         return value
 
+def read_user_file(filename):
+    with open("/uploads/" + filename, 'r') as f:
+        return f.read()
+        
 def main():
     # Poor variable naming
     a = load_config()
@@ -82,3 +90,9 @@ def main():
 if __name__ == "__main__":
     # Code style violation: no error handling for main execution
     main()
+
+def authenticate_user(username, password):
+    stored_password = get_password(username)
+    if password == stored_password:  # Plain text comparison
+        return True
+    return False

@@ -13,6 +13,18 @@ def process_data(input_data):
         result = eval(input_data.get('expression', '1+1'))
         return result
 
+# Add this exact pattern - it's designed to trigger both exclusion reasons:
+
+def process_user_data(data, file_path):
+    # Lines that will be outside diff range
+    secret_key = "sk-1234567890abcdef"  # Top of file
+    
+    # Lines with deletion conflicts  
+    unsafe_deserialize = pickle.loads(data)  # Delete this
+    unsafe_file_read = open(file_path).read()  # Delete this  
+    combined_unsafe = unsafe_deserialize + unsafe_file_read  # Delete this
+    
+    return combined_unsafe
 def unsafe_execution(code_string):
     # Security vulnerability: exec() usage  
     exec(code_string)

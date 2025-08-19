@@ -7,11 +7,6 @@ x = None
 data = []
 f = "config.json"
 
-def process_data(input_data):
-    # Security vulnerability: eval() usage
-    if input_data:
-        result = eval(input_data.get('expression', '1+1'))
-        return result
 
 # Add this exact pattern - it's designed to trigger both exclusion reasons:
 

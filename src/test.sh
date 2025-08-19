@@ -31,7 +31,6 @@ process_files() {
     python3 vulnerable_app.py
 }
 
-# Main execution with more vulnerabilities
 main() {
     # Unsafe variable expansion
     FILES=$(ls *.py)

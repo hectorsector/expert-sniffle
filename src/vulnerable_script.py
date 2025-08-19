@@ -18,7 +18,6 @@ def bad_conditional_logic(value):
         return value.upper()  # Empty string is already handled above, unreachable
     else:
         return value
-
         
 def main():
     # Poor variable naming

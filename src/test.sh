@@ -4,9 +4,6 @@
 # The key is to create scenarios where fixes span multiple lines and involve deletions
 
 # Hardcoded secrets that CCR will want to fix
-API_KEY="sk-1234567890abcdef"
-DB_PASSWORD="admin123"
-AWS_SECRET="AKIAIOSFODNN7EXAMPLE"
 
 # Function with command injection vulnerability
 run_python_with_user_input() {
